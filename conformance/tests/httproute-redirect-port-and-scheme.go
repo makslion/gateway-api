@@ -43,7 +43,7 @@ var HTTPRouteRedirectPortAndScheme = suite.ConformanceTest{
 		suite.SupportGatewayPort8080,
 	},
 	Test: func(t *testing.T, suite *suite.ConformanceTestSuite) {
-		ns := "gateway-conformance-infra"
+		ns := "gw-conf-infra"
 
 		gwNN := types.NamespacedName{Name: "same-namespace", Namespace: ns}
 		routeNN := types.NamespacedName{Name: "http-route-for-listener-on-port-80", Namespace: ns}

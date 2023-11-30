@@ -1,7 +1,7 @@
 # This file contains the base resources that most conformance tests will rely
 # on. This includes 3 namespaces along with Gateways, Services and Deployments
 # that can be used as backends for routing traffic. The most important
-# resources included are the Gateways (all in the gateway-conformance-infra
+# resources included are the Gateways (all in the gw-conf-infra
 # namespace):
 # - same-namespace (only supports route in same ns)
 # - all-namespaces (supports routes in all ns)
@@ -9,15 +9,35 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: gateway-conformance-infra
+  name: gw-conf-infra
   labels:
     gateway-conformance: infra
+---
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: http-gateway
+  namespace: gw-conf-infra
+spec:
+  numberOfClusters: 1
+  clusterSets:
+    - gateway-clusters
+---
+apiVersion: cluster.open-cluster-management.io/v1beta2
+kind: ManagedClusterSetBinding
+metadata:
+  name: gateway-clusters
+  namespace: gw-conf-infra
+spec:
+  clusterSet: gateway-clusters
 ---
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
   name: same-namespace
-  namespace: gateway-conformance-infra
+  namespace: gw-conf-infra
+  labels:
+    cluster.open-cluster-management.io/placement: http-gateway
 spec:
   gatewayClassName: "{GATEWAY_CLASS_NAME}"
   listeners:
@@ -28,11 +48,28 @@ spec:
       namespaces:
         from: Same
 ---
+apiVersion: kuadrant.io/v1alpha1
+kind: TLSPolicy
+metadata:
+  name: prod-web
+  namespace: gw-conf-infra
+spec:
+  targetRef:
+    name: same-namespace-with-https-listener
+    group: gateway.networking.k8s.io
+    kind: Gateway
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: glbc-ca
+---
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
   name: same-namespace-with-https-listener
-  namespace: gateway-conformance-infra
+  namespace: gw-conf-infra
+  labels:
+    cluster.open-cluster-management.io/placement: http-gateway
 spec:
   gatewayClassName: "{GATEWAY_CLASS_NAME}"
   listeners:
@@ -47,13 +84,15 @@ spec:
       - group: ""
         kind: Secret
         name: tls-validity-checks-certificate
-        namespace: gateway-conformance-infra
+        namespace: gw-conf-infra
 ---
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
   name: all-namespaces
-  namespace: gateway-conformance-infra
+  namespace: gw-conf-infra
+  labels:
+    cluster.open-cluster-management.io/placement: http-gateway
 spec:
   gatewayClassName: "{GATEWAY_CLASS_NAME}"
   listeners:
@@ -68,7 +107,9 @@ apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
   name: backend-namespaces
-  namespace: gateway-conformance-infra
+  namespace: gw-conf-infra
+  labels:
+    cluster.open-cluster-management.io/placement: http-gateway
 spec:
   gatewayClassName: "{GATEWAY_CLASS_NAME}"
   listeners:
@@ -86,7 +127,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: infra-backend-v1
-  namespace: gateway-conformance-infra
+  namespace: gw-conf-infra
 spec:
   selector:
     app: infra-backend-v1
@@ -110,7 +151,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: infra-backend-v1
-  namespace: gateway-conformance-infra
+  namespace: gw-conf-infra
   labels:
     app: infra-backend-v1
 spec:
@@ -144,7 +185,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: infra-backend-v2
-  namespace: gateway-conformance-infra
+  namespace: gw-conf-infra
 spec:
   selector:
     app: infra-backend-v2
@@ -157,7 +198,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: infra-backend-v2
-  namespace: gateway-conformance-infra
+  namespace: gw-conf-infra
   labels:
     app: infra-backend-v2
 spec:
@@ -190,7 +231,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: infra-backend-v3
-  namespace: gateway-conformance-infra
+  namespace: gw-conf-infra
 spec:
   selector:
     app: infra-backend-v3
@@ -203,7 +244,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: infra-backend-v3
-  namespace: gateway-conformance-infra
+  namespace: gw-conf-infra
   labels:
     app: infra-backend-v3
 spec:
@@ -236,7 +277,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tls-backend
-  namespace: gateway-conformance-infra
+  namespace: gw-conf-infra
 spec:
   selector:
     app: tls-backend
@@ -249,7 +290,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tls-backend
-  namespace: gateway-conformance-infra
+  namespace: gw-conf-infra
   labels:
     app: tls-backend
 spec:

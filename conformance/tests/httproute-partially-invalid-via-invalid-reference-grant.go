@@ -34,7 +34,7 @@ func init() {
 
 var HTTPRoutePartiallyInvalidViaInvalidReferenceGrant = suite.ConformanceTest{
 	ShortName:   "HTTPRoutePartiallyInvalidViaInvalidReferenceGrant",
-	Description: "A single HTTPRoute in the gateway-conformance-infra namespace should attach to a Gateway in the same namespace if the route has a backendRef Service in the gateway-conformance-app-backend namespace and a ReferenceGrant exists but does not grant permission to route to that specific Service",
+	Description: "A single HTTPRoute in the gw-conf-infra namespace should attach to a Gateway in the same namespace if the route has a backendRef Service in the gateway-conformance-app-backend namespace and a ReferenceGrant exists but does not grant permission to route to that specific Service",
 	Features: []suite.SupportedFeature{
 		suite.SupportGateway,
 		suite.SupportHTTPRoute,
@@ -42,8 +42,8 @@ var HTTPRoutePartiallyInvalidViaInvalidReferenceGrant = suite.ConformanceTest{
 	},
 	Manifests: []string{"tests/httproute-partially-invalid-via-invalid-reference-grant.yaml"},
 	Test: func(t *testing.T, s *suite.ConformanceTestSuite) {
-		routeNN := types.NamespacedName{Name: "invalid-reference-grant", Namespace: "gateway-conformance-infra"}
-		gwNN := types.NamespacedName{Name: "same-namespace", Namespace: "gateway-conformance-infra"}
+		routeNN := types.NamespacedName{Name: "invalid-reference-grant", Namespace: "gw-conf-infra"}
+		gwNN := types.NamespacedName{Name: "same-namespace", Namespace: "gw-conf-infra"}
 
 		// Route and Gateway must be Attached.
 		gwAddr := kubernetes.GatewayAndHTTPRoutesMustBeAccepted(t, s.Client, s.TimeoutConfig, s.ControllerName, kubernetes.NewGatewayRef(gwNN), routeNN)

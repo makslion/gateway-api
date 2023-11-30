@@ -40,7 +40,7 @@ var HTTPRouteQueryParamMatching = suite.ConformanceTest{
 		suite.SupportHTTPRouteQueryParamMatching,
 	},
 	Test: func(t *testing.T, suite *suite.ConformanceTestSuite) {
-		ns := "gateway-conformance-infra"
+		ns := "gw-conf-infra"
 		routeNN := types.NamespacedName{Namespace: ns, Name: "query-param-matching"}
 		gwNN := types.NamespacedName{Namespace: ns, Name: "same-namespace"}
 		gwAddr := kubernetes.GatewayAndHTTPRoutesMustBeAccepted(t, suite.Client, suite.TimeoutConfig, suite.ControllerName, kubernetes.NewGatewayRef(gwNN), routeNN)

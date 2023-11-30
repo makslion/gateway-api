@@ -9,6 +9,8 @@ apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
   name: default-match-gw
+  labels:
+    cluster.open-cluster-management.io/placement: http-gateway
 spec:
   gatewayClassName: default-match-example
   listeners:

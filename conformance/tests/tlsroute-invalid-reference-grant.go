@@ -33,7 +33,7 @@ func init() {
 
 var TLSRouteInvalidReferenceGrant = suite.ConformanceTest{
 	ShortName:   "TLSRouteInvalidReferenceGrant",
-	Description: "A single TLSRoute in the gateway-conformance-infra namespace, with a backendRef in another namespace without valid ReferenceGrant, should have the ResolvedRefs condition set to False",
+	Description: "A single TLSRoute in the gw-conf-infra namespace, with a backendRef in another namespace without valid ReferenceGrant, should have the ResolvedRefs condition set to False",
 	Features: []suite.SupportedFeature{
 		suite.SupportGateway,
 		suite.SupportTLSRoute,
@@ -41,8 +41,8 @@ var TLSRouteInvalidReferenceGrant = suite.ConformanceTest{
 	},
 	Manifests: []string{"tests/tlsroute-invalid-reference-grant.yaml"},
 	Test: func(t *testing.T, suite *suite.ConformanceTestSuite) {
-		routeNN := types.NamespacedName{Name: "gateway-conformance-infra-test", Namespace: "gateway-conformance-infra"}
-		gwNN := types.NamespacedName{Name: "gateway-tlsroute-referencegrant", Namespace: "gateway-conformance-infra"}
+		routeNN := types.NamespacedName{Name: "gw-conf-infra-test", Namespace: "gw-conf-infra"}
+		gwNN := types.NamespacedName{Name: "gateway-tlsroute-referencegrant", Namespace: "gw-conf-infra"}
 
 		kubernetes.GatewayAndTLSRoutesMustBeAccepted(t, suite.Client, suite.TimeoutConfig, suite.ControllerName, kubernetes.NewGatewayRef(gwNN), routeNN)
 

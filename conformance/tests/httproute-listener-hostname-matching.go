@@ -39,9 +39,9 @@ var HTTPRouteListenerHostnameMatching = suite.ConformanceTest{
 	},
 	Manifests: []string{"tests/httproute-listener-hostname-matching.yaml"},
 	Test: func(t *testing.T, suite *suite.ConformanceTestSuite) {
-		ns := "gateway-conformance-infra"
+		ns := "gw-conf-infra"
 
-		// This test creates an additional Gateway in the gateway-conformance-infra
+		// This test creates an additional Gateway in the gw-conf-infra
 		// namespace so we have to wait for it to be ready.
 		kubernetes.NamespacesMustBeReady(t, suite.Client, suite.TimeoutConfig, []string{ns})
 

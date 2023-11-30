@@ -39,15 +39,15 @@ func init() {
 
 var TLSRouteSimpleSameNamespace = suite.ConformanceTest{
 	ShortName:   "TLSRouteSimpleSameNamespace",
-	Description: "A single TLSRoute in the gateway-conformance-infra namespace attaches to a Gateway in the same namespace",
+	Description: "A single TLSRoute in the gw-conf-infra namespace attaches to a Gateway in the same namespace",
 	Features: []suite.SupportedFeature{
 		suite.SupportGateway,
 		suite.SupportTLSRoute,
 	},
 	Manifests: []string{"tests/tlsroute-simple-same-namespace.yaml"},
 	Test: func(t *testing.T, suite *suite.ConformanceTestSuite) {
-		ns := "gateway-conformance-infra"
-		routeNN := types.NamespacedName{Name: "gateway-conformance-infra-test", Namespace: ns}
+		ns := "gw-conf-infra"
+		routeNN := types.NamespacedName{Name: "gw-conf-infra-test", Namespace: ns}
 		gwNN := types.NamespacedName{Name: "gateway-tlsroute", Namespace: ns}
 		certNN := types.NamespacedName{Name: "tls-passthrough-checks-certificate", Namespace: ns}
 
@@ -68,7 +68,7 @@ var TLSRouteSimpleSameNamespace = suite.ConformanceTest{
 				http.ExpectedResponse{
 					Request:   http.Request{Host: serverStr, Path: "/"},
 					Backend:   "tls-backend",
-					Namespace: "gateway-conformance-infra",
+					Namespace: "gw-conf-infra",
 				})
 		})
 	},

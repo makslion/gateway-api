@@ -37,18 +37,18 @@ func init() {
 
 var GatewayModifyListeners = suite.ConformanceTest{
 	ShortName:   "GatewayModifyListeners",
-	Description: "A Gateway in the gateway-conformance-infra namespace should handle adding and removing listeners.",
+	Description: "A Gateway in the gw-conf-infra namespace should handle adding and removing listeners.",
 	Features: []suite.SupportedFeature{
 		suite.SupportGateway,
 	},
 	Manifests: []string{"tests/gateway-modify-listeners.yaml"},
 	Test: func(t *testing.T, s *suite.ConformanceTestSuite) {
 		t.Run("should be able to add a listener that then becomes available for routing traffic", func(t *testing.T) {
-			gwNN := types.NamespacedName{Name: "gateway-add-listener", Namespace: "gateway-conformance-infra"}
+			gwNN := types.NamespacedName{Name: "gateway-add-listener", Namespace: "gw-conf-infra"}
 			ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 			defer cancel()
 
-			namespaces := []string{"gateway-conformance-infra"}
+			namespaces := []string{"gw-conf-infra"}
 			kubernetes.NamespacesMustBeReady(t, s.Client, s.TimeoutConfig, namespaces)
 
 			// verify that the implementation is tracking the most recent resource changes
@@ -136,11 +136,11 @@ var GatewayModifyListeners = suite.ConformanceTest{
 		})
 
 		t.Run("should be able to remove listeners, which would then stop routing the relevant traffic", func(t *testing.T) {
-			gwNN := types.NamespacedName{Name: "gateway-remove-listener", Namespace: "gateway-conformance-infra"}
+			gwNN := types.NamespacedName{Name: "gateway-remove-listener", Namespace: "gw-conf-infra"}
 			ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 			defer cancel()
 
-			namespaces := []string{"gateway-conformance-infra"}
+			namespaces := []string{"gw-conf-infra"}
 			kubernetes.NamespacesMustBeReady(t, s.Client, s.TimeoutConfig, namespaces)
 
 			// verify that the implementation is tracking the most recent resource changes

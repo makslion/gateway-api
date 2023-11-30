@@ -39,7 +39,7 @@ var HTTPRouteMatchingAcrossRoutes = suite.ConformanceTest{
 	},
 	Manifests: []string{"tests/httproute-matching-across-routes.yaml"},
 	Test: func(t *testing.T, suite *suite.ConformanceTestSuite) {
-		ns := "gateway-conformance-infra"
+		ns := "gw-conf-infra"
 		routeNN1 := types.NamespacedName{Name: "matching-part1", Namespace: ns}
 		routeNN2 := types.NamespacedName{Name: "matching-part2", Namespace: ns}
 		gwNN := types.NamespacedName{Name: "same-namespace", Namespace: ns}

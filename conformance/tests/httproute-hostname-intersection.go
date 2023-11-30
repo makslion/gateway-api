@@ -41,10 +41,10 @@ var HTTPRouteHostnameIntersection = suite.ConformanceTest{
 	},
 	Manifests: []string{"tests/httproute-hostname-intersection.yaml"},
 	Test: func(t *testing.T, suite *suite.ConformanceTestSuite) {
-		ns := "gateway-conformance-infra"
+		ns := "gw-conf-infra"
 		gwNN := types.NamespacedName{Name: "httproute-hostname-intersection", Namespace: ns}
 
-		// This test creates an additional Gateway in the gateway-conformance-infra
+		// This test creates an additional Gateway in the gw-conf-infra
 		// namespace so we have to wait for it to be ready.
 		kubernetes.NamespacesMustBeReady(t, suite.Client, suite.TimeoutConfig, []string{ns})
 

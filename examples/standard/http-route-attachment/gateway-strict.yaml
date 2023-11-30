@@ -5,6 +5,8 @@ kind: Gateway
 metadata:
   name: foo-gateway
   namespace: gateway-api-example-ns1
+  labels:
+    cluster.open-cluster-management.io/placement: http-gateway
 spec:
   gatewayClassName: foo-lb
   listeners:

@@ -39,7 +39,7 @@ var HTTPRoutePathMatchOrder = suite.ConformanceTest{
 	},
 	Manifests: []string{"tests/httproute-path-match-order.yaml"},
 	Test: func(t *testing.T, suite *suite.ConformanceTestSuite) {
-		ns := "gateway-conformance-infra"
+		ns := "gw-conf-infra"
 		routeNN := types.NamespacedName{Namespace: ns, Name: "path-matching-order"}
 		gwNN := types.NamespacedName{Namespace: ns, Name: "same-namespace"}
 		gwAddr := kubernetes.GatewayAndHTTPRoutesMustBeAccepted(t, suite.Client, suite.TimeoutConfig, suite.ControllerName, kubernetes.NewGatewayRef(gwNN), routeNN)

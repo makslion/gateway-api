@@ -33,7 +33,7 @@ func init() {
 
 var GatewayWithAttachedRoutes = suite.ConformanceTest{
 	ShortName:   "GatewayWithAttachedRoutes",
-	Description: "A Gateway in the gateway-conformance-infra namespace should be attached to routes.",
+	Description: "A Gateway in the gw-conf-infra namespace should be attached to routes.",
 	Features: []suite.SupportedFeature{
 		suite.SupportGateway,
 		suite.SupportHTTPRoute,
@@ -41,7 +41,7 @@ var GatewayWithAttachedRoutes = suite.ConformanceTest{
 	Manifests: []string{"tests/gateway-with-attached-routes.yaml"},
 	Test: func(t *testing.T, s *suite.ConformanceTestSuite) {
 		t.Run("Gateway listener should have one valid http routes attached", func(t *testing.T) {
-			gwNN := types.NamespacedName{Name: "gateway-with-one-attached-route", Namespace: "gateway-conformance-infra"}
+			gwNN := types.NamespacedName{Name: "gateway-with-one-attached-route", Namespace: "gw-conf-infra"}
 			listeners := []v1.ListenerStatus{{
 				Name: v1.SectionName("http"),
 				SupportedKinds: []v1.RouteGroupKind{{
@@ -67,7 +67,7 @@ var GatewayWithAttachedRoutes = suite.ConformanceTest{
 		})
 
 		t.Run("Gateway listener should have two valid http routes attached", func(t *testing.T) {
-			gwNN := types.NamespacedName{Name: "gateway-with-two-attached-routes", Namespace: "gateway-conformance-infra"}
+			gwNN := types.NamespacedName{Name: "gateway-with-two-attached-routes", Namespace: "gw-conf-infra"}
 			listeners := []v1.ListenerStatus{{
 				Name: v1.SectionName("http"),
 				SupportedKinds: []v1.RouteGroupKind{{
@@ -93,7 +93,7 @@ var GatewayWithAttachedRoutes = suite.ConformanceTest{
 		})
 
 		t.Run("Gateway listener should have AttachedRoutes set even when Gateway has unresolved refs", func(t *testing.T) {
-			gwNN := types.NamespacedName{Name: "unresolved-gateway-with-one-attached-unresolved-route", Namespace: "gateway-conformance-infra"}
+			gwNN := types.NamespacedName{Name: "unresolv-gw-with-one-attached-unresolv-route", Namespace: "gw-conf-infra"}
 			listeners := []v1.ListenerStatus{{
 				Name: v1.SectionName("tls"),
 				SupportedKinds: []v1.RouteGroupKind{{
@@ -117,7 +117,7 @@ var GatewayWithAttachedRoutes = suite.ConformanceTest{
 
 			kubernetes.GatewayStatusMustHaveListeners(t, s.Client, s.TimeoutConfig, gwNN, listeners)
 
-			hrouteNN := types.NamespacedName{Name: "http-route-4", Namespace: "gateway-conformance-infra"}
+			hrouteNN := types.NamespacedName{Name: "http-route-4", Namespace: "gw-conf-infra"}
 			unresolved := metav1.Condition{
 				Type:   string(v1.RouteConditionResolvedRefs),
 				Status: metav1.ConditionFalse,
@@ -131,7 +131,7 @@ var GatewayWithAttachedRoutes = suite.ConformanceTest{
 
 var GatewayWithAttachedRoutesWithPort8080 = suite.ConformanceTest{
 	ShortName:   "GatewayWithAttachedRoutesWithPort8080",
-	Description: "A Gateway in the gateway-conformance-infra namespace should be attached to routes.",
+	Description: "A Gateway in the gw-conf-infra namespace should be attached to routes.",
 	Features: []suite.SupportedFeature{
 		suite.SupportGateway,
 		suite.SupportGatewayPort8080,
@@ -140,7 +140,7 @@ var GatewayWithAttachedRoutesWithPort8080 = suite.ConformanceTest{
 	Manifests: []string{"tests/gateway-with-attached-routes-with-port-8080.yaml"},
 	Test: func(t *testing.T, s *suite.ConformanceTestSuite) {
 		t.Run("Gateway listener should have attached route by specifying the sectionName", func(t *testing.T) {
-			gwNN := types.NamespacedName{Name: "gateway-with-two-listeners-and-one-attached-route", Namespace: "gateway-conformance-infra"}
+			gwNN := types.NamespacedName{Name: "gw-with-two-listeners-and-one-attached-route", Namespace: "gw-conf-infra"}
 			listeners := []v1.ListenerStatus{
 				{
 					Name: v1.SectionName("http-unattached"),

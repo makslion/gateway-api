@@ -37,21 +37,21 @@ func init() {
 
 var HTTPRouteObservedGenerationBump = suite.ConformanceTest{
 	ShortName:   "HTTPRouteObservedGenerationBump",
-	Description: "A HTTPRoute in the gateway-conformance-infra namespace should update the observedGeneration in all of it's Status.Conditions after an update to the spec",
+	Description: "A HTTPRoute in the gw-conf-infra namespace should update the observedGeneration in all of it's Status.Conditions after an update to the spec",
 	Features: []suite.SupportedFeature{
 		suite.SupportGateway,
 		suite.SupportHTTPRoute,
 	},
 	Manifests: []string{"tests/httproute-observed-generation-bump.yaml"},
 	Test: func(t *testing.T, suite *suite.ConformanceTestSuite) {
-		routeNN := types.NamespacedName{Name: "observed-generation-bump", Namespace: "gateway-conformance-infra"}
-		gwNN := types.NamespacedName{Name: "same-namespace", Namespace: "gateway-conformance-infra"}
+		routeNN := types.NamespacedName{Name: "observed-generation-bump", Namespace: "gw-conf-infra"}
+		gwNN := types.NamespacedName{Name: "same-namespace", Namespace: "gw-conf-infra"}
 
 		t.Run("observedGeneration should increment", func(t *testing.T) {
 			ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 			defer cancel()
 
-			namespaces := []string{"gateway-conformance-infra"}
+			namespaces := []string{"gw-conf-infra"}
 			kubernetes.NamespacesMustBeReady(t, suite.Client, suite.TimeoutConfig, namespaces)
 
 			original := &v1.HTTPRoute{}

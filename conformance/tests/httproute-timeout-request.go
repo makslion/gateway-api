@@ -44,7 +44,7 @@ var HTTPRouteTimeoutRequest = suite.ConformanceTest{
 		suite.SupportHTTPRouteRequestTimeout,
 	},
 	Test: func(t *testing.T, suite *suite.ConformanceTestSuite) {
-		ns := "gateway-conformance-infra"
+		ns := "gw-conf-infra"
 		routeNN := types.NamespacedName{Name: "request-timeout", Namespace: ns}
 		gwNN := types.NamespacedName{Name: "same-namespace", Namespace: ns}
 		gwAddr := kubernetes.GatewayAndHTTPRoutesMustBeAccepted(t, suite.Client, suite.TimeoutConfig, suite.ControllerName, kubernetes.NewGatewayRef(gwNN), routeNN)

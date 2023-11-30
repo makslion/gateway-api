@@ -40,7 +40,7 @@ var HTTPRouteRedirectHostAndStatus = suite.ConformanceTest{
 	},
 	Manifests: []string{"tests/httproute-redirect-host-and-status.yaml"},
 	Test: func(t *testing.T, suite *suite.ConformanceTestSuite) {
-		ns := "gateway-conformance-infra"
+		ns := "gw-conf-infra"
 		routeNN := types.NamespacedName{Name: "redirect-host-and-status", Namespace: ns}
 		gwNN := types.NamespacedName{Name: "same-namespace", Namespace: ns}
 		gwAddr := kubernetes.GatewayAndHTTPRoutesMustBeAccepted(t, suite.Client, suite.TimeoutConfig, suite.ControllerName, kubernetes.NewGatewayRef(gwNN), routeNN)

@@ -36,7 +36,7 @@ func init() {
 
 var HTTPRouteReferenceGrant = suite.ConformanceTest{
 	ShortName:   "HTTPRouteReferenceGrant",
-	Description: "A single HTTPRoute in the gateway-conformance-infra namespace, with a backendRef in the gateway-conformance-web-backend namespace, should attach to Gateway in the gateway-conformance-infra namespace",
+	Description: "A single HTTPRoute in the gw-conf-infra namespace, with a backendRef in the gateway-conformance-web-backend namespace, should attach to Gateway in the gw-conf-infra namespace",
 	Features: []suite.SupportedFeature{
 		suite.SupportGateway,
 		suite.SupportHTTPRoute,
@@ -44,8 +44,8 @@ var HTTPRouteReferenceGrant = suite.ConformanceTest{
 	},
 	Manifests: []string{"tests/httproute-reference-grant.yaml"},
 	Test: func(t *testing.T, suite *suite.ConformanceTestSuite) {
-		routeNN := types.NamespacedName{Name: "reference-grant", Namespace: "gateway-conformance-infra"}
-		gwNN := types.NamespacedName{Name: "same-namespace", Namespace: "gateway-conformance-infra"}
+		routeNN := types.NamespacedName{Name: "reference-grant", Namespace: "gw-conf-infra"}
+		gwNN := types.NamespacedName{Name: "same-namespace", Namespace: "gw-conf-infra"}
 		gwAddr := kubernetes.GatewayAndHTTPRoutesMustBeAccepted(t, suite.Client, suite.TimeoutConfig, suite.ControllerName, kubernetes.NewGatewayRef(gwNN), routeNN)
 		kubernetes.HTTPRouteMustHaveResolvedRefsConditionsTrue(t, suite.Client, suite.TimeoutConfig, routeNN, gwNN)
 

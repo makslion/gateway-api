@@ -3,12 +3,12 @@ apiVersion: gateway.networking.k8s.io/v1beta1
 kind: ReferenceGrant
 metadata:
   name: reference-grant-wrong-namespace
-  namespace: gateway-conformance-infra
+  namespace: gw-conf-infra
 spec:
   from:
     - group: gateway.networking.k8s.io
       kind: TLSRoute
-      namespace: gateway-conformance-infra
+      namespace: gw-conf-infra
   to:
     - group: ""
       kind: Service
@@ -23,7 +23,7 @@ spec:
   from:
     - group: not-the-group-youre-looking-for
       kind: TLSRoute
-      namespace: gateway-conformance-infra
+      namespace: gw-conf-infra
   to:
     - group: ""
       kind: Service
@@ -38,7 +38,7 @@ spec:
   from:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      namespace: gateway-conformance-infra
+      namespace: gw-conf-infra
   to:
     - group: ""
       kind: Service
@@ -68,7 +68,7 @@ spec:
   from:
     - group: gateway.networking.k8s.io
       kind: TLSRoute
-      namespace: gateway-conformance-infra
+      namespace: gw-conf-infra
   to:
     - group: not-the-group-youre-looking-for
       kind: Service
@@ -83,7 +83,7 @@ spec:
   from:
     - group: gateway.networking.k8s.io
       kind: TLSRoute
-      namespace: gateway-conformance-infra
+      namespace: gw-conf-infra
   to:
     - group: ""
       kind: Secret
@@ -98,7 +98,7 @@ spec:
   from:
     - group: gateway.networking.k8s.io
       kind: TLSRoute
-      namespace: gateway-conformance-infra
+      namespace: gw-conf-infra
   to:
     - group: ""
       kind: Service
@@ -107,8 +107,8 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: TLSRoute
 metadata:
-  name: gateway-conformance-infra-test
-  namespace: gateway-conformance-infra
+  name: gw-conf-infra-test
+  namespace: gw-conf-infra
 spec:
   parentRefs:
     - name: gateway-tlsroute-referencegrant
@@ -124,7 +124,9 @@ apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
   name: gateway-tlsroute-referencegrant
-  namespace: gateway-conformance-infra
+  namespace: gw-conf-infra
+  labels:
+    cluster.open-cluster-management.io/placement: http-gateway
 spec:
   gatewayClassName: "{GATEWAY_CLASS_NAME}"
   listeners:

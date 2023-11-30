@@ -56,7 +56,7 @@ func init() {
 // With appropriate network addresses for your network environment.
 var GatewayStaticAddresses = suite.ConformanceTest{
 	ShortName:   "GatewayStaticAddresses",
-	Description: "A Gateway in the gateway-conformance-infra namespace should be able to use previously determined addresses.",
+	Description: "A Gateway in the gw-conf-infra namespace should be able to use previously determined addresses.",
 	Features: []suite.SupportedFeature{
 		suite.SupportGateway,
 		suite.SupportGatewayStaticAddresses,
@@ -67,7 +67,7 @@ var GatewayStaticAddresses = suite.ConformanceTest{
 	Test: func(t *testing.T, s *suite.ConformanceTestSuite) {
 		gwNN := types.NamespacedName{
 			Name:      "gateway-static-addresses",
-			Namespace: "gateway-conformance-infra",
+			Namespace: "gw-conf-infra",
 		}
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()

@@ -34,15 +34,15 @@ func init() {
 
 var HTTPRouteInvalidNonExistentBackendRef = suite.ConformanceTest{
 	ShortName:   "HTTPRouteInvalidNonExistentBackendRef",
-	Description: "A single HTTPRoute in the gateway-conformance-infra namespace should set a ResolvedRefs status False with reason BackendNotFound and return 500 when binding to a Gateway in the same namespace if the route has a BackendRef Service that does not exist",
+	Description: "A single HTTPRoute in the gw-conf-infra namespace should set a ResolvedRefs status False with reason BackendNotFound and return 500 when binding to a Gateway in the same namespace if the route has a BackendRef Service that does not exist",
 	Features: []suite.SupportedFeature{
 		suite.SupportGateway,
 		suite.SupportHTTPRoute,
 	},
 	Manifests: []string{"tests/httproute-invalid-nonexistent-backendref.yaml"},
 	Test: func(t *testing.T, suite *suite.ConformanceTestSuite) {
-		routeNN := types.NamespacedName{Name: "invalid-nonexistent-backend-ref", Namespace: "gateway-conformance-infra"}
-		gwNN := types.NamespacedName{Name: "same-namespace", Namespace: "gateway-conformance-infra"}
+		routeNN := types.NamespacedName{Name: "invalid-nonexistent-backend-ref", Namespace: "gw-conf-infra"}
+		gwNN := types.NamespacedName{Name: "same-namespace", Namespace: "gw-conf-infra"}
 
 		// Gateway and Route must be Accepted.
 		gwAddr := kubernetes.GatewayAndHTTPRoutesMustBeAccepted(t, suite.Client, suite.TimeoutConfig, suite.ControllerName, kubernetes.NewGatewayRef(gwNN), routeNN)

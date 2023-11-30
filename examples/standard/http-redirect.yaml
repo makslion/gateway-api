@@ -19,6 +19,8 @@ kind: Gateway
 metadata:
   name: my-filter-gateway
   namespace: gateway-api-example-ns1
+  labels:
+    cluster.open-cluster-management.io/placement: http-gateway
 spec:
   gatewayClassName: filter-lb
   listeners:

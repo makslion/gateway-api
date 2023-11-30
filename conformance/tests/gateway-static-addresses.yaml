@@ -3,7 +3,9 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: gateway-static-addresses
-  namespace: gateway-conformance-infra
+  namespace: gw-conf-infra
+  labels:
+    cluster.open-cluster-management.io/placement: http-gateway
   annotations:
     gateway-api/skip-this-for-readiness: "true"
 spec:

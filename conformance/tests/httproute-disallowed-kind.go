@@ -33,7 +33,7 @@ func init() {
 
 var HTTPRouteDisallowedKind = suite.ConformanceTest{
 	ShortName:   "HTTPRouteDisallowedKind",
-	Description: "A single HTTPRoute in the gateway-conformance-infra namespace should fail to attach to a Gateway with no listeners that allow the HTTPRoute kind",
+	Description: "A single HTTPRoute in the gw-conf-infra namespace should fail to attach to a Gateway with no listeners that allow the HTTPRoute kind",
 	Features: []suite.SupportedFeature{
 		suite.SupportGateway,
 		suite.SupportHTTPRoute,
@@ -41,12 +41,12 @@ var HTTPRouteDisallowedKind = suite.ConformanceTest{
 	},
 	Manifests: []string{"tests/httproute-disallowed-kind.yaml"},
 	Test: func(t *testing.T, suite *suite.ConformanceTestSuite) {
-		// This test creates an additional Gateway in the gateway-conformance-infra
+		// This test creates an additional Gateway in the gw-conf-infra
 		// namespace so we have to wait for it to be ready.
-		kubernetes.NamespacesMustBeReady(t, suite.Client, suite.TimeoutConfig, []string{"gateway-conformance-infra"})
+		kubernetes.NamespacesMustBeReady(t, suite.Client, suite.TimeoutConfig, []string{"gw-conf-infra"})
 
-		routeNN := types.NamespacedName{Name: "disallowed-kind", Namespace: "gateway-conformance-infra"}
-		gwNN := types.NamespacedName{Name: "tlsroutes-only", Namespace: "gateway-conformance-infra"}
+		routeNN := types.NamespacedName{Name: "disallowed-kind", Namespace: "gw-conf-infra"}
+		gwNN := types.NamespacedName{Name: "tlsroutes-only", Namespace: "gw-conf-infra"}
 		kubernetes.HTTPRouteMustHaveResolvedRefsConditionsTrue(t, suite.Client, suite.TimeoutConfig, routeNN, gwNN)
 
 		t.Run("Route should not have been accepted with reason NotAllowedByListeners", func(t *testing.T) {

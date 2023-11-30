@@ -5,6 +5,8 @@ kind: Gateway
 metadata:
   name: shared-gateway
   namespace: infra-ns
+  labels:
+    cluster.open-cluster-management.io/placement: http-gateway
 spec:
   gatewayClassName: shared-gateway-class
   listeners:

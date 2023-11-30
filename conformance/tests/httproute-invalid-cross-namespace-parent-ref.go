@@ -40,7 +40,7 @@ var HTTPRouteInvalidCrossNamespaceParentRef = suite.ConformanceTest{
 	},
 	Manifests: []string{"tests/httproute-invalid-cross-namespace-parent-ref.yaml"},
 	Test: func(t *testing.T, suite *suite.ConformanceTestSuite) {
-		gwNN := types.NamespacedName{Name: "same-namespace", Namespace: "gateway-conformance-infra"}
+		gwNN := types.NamespacedName{Name: "same-namespace", Namespace: "gw-conf-infra"}
 		routeNN := types.NamespacedName{Name: "invalid-cross-namespace-parent-ref", Namespace: "gateway-conformance-web-backend"}
 		kubernetes.HTTPRouteMustHaveResolvedRefsConditionsTrue(t, suite.Client, suite.TimeoutConfig, routeNN, gwNN)
 

@@ -59,19 +59,19 @@ var GatewayInvalidTLSConfiguration = suite.ConformanceTest{
 		}{
 			{
 				name:                  "Nonexistent secret referenced as CertificateRef in a Gateway listener",
-				gatewayNamespacedName: types.NamespacedName{Name: "gateway-certificate-nonexistent-secret", Namespace: "gateway-conformance-infra"},
+				gatewayNamespacedName: types.NamespacedName{Name: "gateway-certificate-nonexistent-secret", Namespace: "gw-conf-infra"},
 			},
 			{
 				name:                  "Unsupported group resource referenced as CertificateRef in a Gateway listener",
-				gatewayNamespacedName: types.NamespacedName{Name: "gateway-certificate-unsupported-group", Namespace: "gateway-conformance-infra"},
+				gatewayNamespacedName: types.NamespacedName{Name: "gateway-certificate-unsupported-group", Namespace: "gw-conf-infra"},
 			},
 			{
 				name:                  "Unsupported kind resource referenced as CertificateRef in a Gateway listener",
-				gatewayNamespacedName: types.NamespacedName{Name: "gateway-certificate-unsupported-kind", Namespace: "gateway-conformance-infra"},
+				gatewayNamespacedName: types.NamespacedName{Name: "gateway-certificate-unsupported-kind", Namespace: "gw-conf-infra"},
 			},
 			{
 				name:                  "Malformed secret referenced as CertificateRef in a Gateway listener",
-				gatewayNamespacedName: types.NamespacedName{Name: "gateway-certificate-malformed-secret", Namespace: "gateway-conformance-infra"},
+				gatewayNamespacedName: types.NamespacedName{Name: "gateway-certificate-malformed-secret", Namespace: "gw-conf-infra"},
 			},
 		}
 
